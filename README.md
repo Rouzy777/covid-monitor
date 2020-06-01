@@ -1,4 +1,6 @@
-# covid-monitor
+# Covid-19 Monitor App
+
+![Demo image](/demo/demo.png?raw=true "Title")
 
 ## Project setup
 ```
