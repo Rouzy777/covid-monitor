@@ -1,7 +1,9 @@
 <template>
-  <div id="app">
-      <h1 class='mt-4'>COVID-19 Monitor</h1>
-      <router-view/>
+  <div class='d-flex min-vh-100' id="app">
+      <div class="col-12 m-auto">
+          <h1 class='mt-4'>COVID-19 Monitor</h1>
+          <router-view/>
+      </div>
   </div>
 </template>
 
