@@ -1,61 +1,58 @@
 <template>
 <div>
-	<div v-if='loading'>
-		<h4>Loading</h4>
-	</div>
+	<Loader v-if='!covidCases' />
 	<div v-else class="col-12 row mx-auto text-left">
 		<div class="bg-shadow mr-lg-2 rounded col-lg col-12 p-4">
 			<h4 class='text-muted'>Most infected:</h4>
 			<h1 class='font-weight-bold'>{{most.country}}</h1>
-			<h1 class='display-1 text-danger font-weight-bold'>{{most.cases.total}}</h1>
+			<h1 class='responsive-text text-danger font-weight-bold'>{{most.cases.total}}</h1>
 			<h4 class='opacity font-weight-bold'><span class='text-danger'>{{most.cases.new}}</span> TODAY</h4>
 		</div>
 		<div class="bg-shadow ml-lg-2 mt-lg-0 mt-3 rounded col-lg col-12 p-4">
 			<h4 class='text-muted'>Least infected:</h4>
 			<h1 class='font-weight-bold'>{{least.country}}</h1>
-			<h1 class='display-1 text-danger font-weight-bold'>{{least.cases.total}}</h1>
+			<h1 class='responsive-text text-danger font-weight-bold'>{{least.cases.total}}</h1>
 			<h4 class='opacity font-weight-bold'><span class='text-danger'>{{least.cases.new ? least.cases.new : 0}}</span> TODAY</h4>
 		</div>
-		<input v-model='country' v-on:keyup.enter="getCasesInCountry" placeholder="Type your country! E.g. USA" class='form-control text-lg col-12 my-3'>
-        <div v-if='countryCases' class="bg-shadow col p-4 mb-4 rounded">
-            <h4 class='text-muted'>Selected country:</h4>
-            <h1 class='font-weight-bold'>{{countryCases[0].country}}</h1>
-            <h1 class='display-1 text-danger font-weight-bold'>{{countryCases[0].cases.total}}</h1>
-            <h4 class='opacity font-weight-bold'><span class='text-danger'>{{countryCases[0].cases.new ? countryCases[0].cases.new : 0}}</span> TODAY</h4>
-        </div>
-		<!--table class='table table-bordered'>
-			<thead>
-				<tr class='bg-shadow'>
-					<th scope="col">#</th>
-					<th scope="col">Country</th>
-					<th scope="col">Cases</th>
-					<th scope="col">Deaths</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr v-for='(item, i) in covidCases' :key='item.country'>
-					<th>{{i+1}}</th>
-					<td>{{item.country}}</td>
-					<td>{{item.cases.total}}</td>
-					<td>{{item.deaths.total}}</td>
-				</tr>
-			</tbody>
-		</table-->
+	</div>
+	<div class="col-12 row mx-auto text-left mt-3">
+		<div class="bg-shadow mr-lg-2 rounded col-lg col-12 p-4 min-h-special">
+			<input v-model='country' v-on:keyup.enter="getCasesInCountry" placeholder="Type your country &amp; press enter... E.g. USA" class='form-control text-lg mb-3'>
+			<div v-if='countryCases'>
+				<h4 class='text-muted'>Selected:</h4>
+				<h1 class='font-weight-bold'>{{countryCases[0].country}}</h1>
+				<h1 class='responsive-text text-danger font-weight-bold'>{{countryCases[0].cases.total}}</h1>
+				<h4 class='opacity font-weight-bold'><span class='text-danger'>{{countryCases[0].cases.new ? countryCases[0].cases.new : 0}}</span> TODAY</h4>
+			</div>
+		</div>
+		<div class="bg-shadow ml-lg-2 mt-lg-0 mt-3 rounded col-lg col-12 p-4 min-h-special">
+			<router-link to='/all'>
+				<h3 class='text-light bg-primary rounded p-2'>See all countries</h3>
+			</router-link>
+			<div class="text-center mt-5">
+				<h1 style='font-size: 100px'>🧼👏</h1>
+				<h2 class='mt-4'>Don't forget to wash your hands!</h2>
+			</div>
+		</div>
 	</div>
 </div>
 </template>
 
 <script>
+import Loader from '@/components/Loader.vue'
+
 export default {
 	name: 'Monitor',
 	data: () => ({
-		loading: true,
 		covidCases: null,
 		most: null,
 		least: null,
 		country: '',
 		countryCases: null
 	}),
+    components: {
+        Loader
+    },
 	async created() {
 		let result = await fetch("https://covid-193.p.rapidapi.com/statistics", {
 			"method": "GET",
@@ -69,7 +66,6 @@ export default {
 		let countries = this.covidCases.filter(i => i.country !== "All");
 		this.max(countries);
 		this.min(countries);
-		this.loading = false;
 	},
 	methods: {
 		max(countries) {
@@ -88,9 +84,9 @@ export default {
 			});
 			this.countryCases = (await result.json()).response;
 
-            if(this.countryCases.length === 0) {
-                this.countryCases = null
-            }
+			if (this.countryCases.length === 0) {
+				this.countryCases = null
+			}
 		}
 	}
 }
@@ -107,5 +103,17 @@ export default {
 
 .text-lg {
 	font-size: 25px
+}
+
+a:hover {
+	text-decoration: none
+}
+
+.min-h-special {
+	min-height: 379px
+}
+
+.responsive-text {
+    font-size: 7.4vmax
 }
 </style>

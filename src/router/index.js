@@ -3,12 +3,17 @@ import VueRouter from 'vue-router'
 
 Vue.use(VueRouter)
 
-  const routes = [
-  {
-    path: '/',
-    name: 'Home',
-    component: () => import('../views/Home.vue')
-  }
+const routes = [
+    {
+        path: '/',
+        name: 'Home',
+        component: () => import('../views/Home.vue')
+    },
+    {
+        path: '/all',
+        name: 'Table',
+        component: () => import('../views/All.vue')
+    }
 ]
 
 const router = new VueRouter({
