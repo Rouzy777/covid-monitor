@@ -1,40 +1,42 @@
 <template>
 <div>
 	<Loader v-if='!covidCases' />
-	<div v-else class="col-12 row mx-auto text-left">
-		<div class="bg-shadow mr-lg-2 rounded col-lg col-12 p-4">
-			<h4 class='text-muted'>Most infected:</h4>
-			<h1 class='font-weight-bold'>{{most.country}}</h1>
-			<h1 class='responsive-text text-danger font-weight-bold'>{{most.cases.total}}</h1>
-			<h4 class='opacity font-weight-bold'><span class='text-danger'>{{most.cases.new}}</span> TODAY</h4>
-		</div>
-		<div class="bg-shadow ml-lg-2 mt-lg-0 mt-3 rounded col-lg col-12 p-4">
-			<h4 class='text-muted'>Least infected:</h4>
-			<h1 class='font-weight-bold'>{{least.country}}</h1>
-			<h1 class='responsive-text text-danger font-weight-bold'>{{least.cases.total}}</h1>
-			<h4 class='opacity font-weight-bold'><span class='text-danger'>{{least.cases.new ? least.cases.new : 0}}</span> TODAY</h4>
-		</div>
-	</div>
-	<div class="col-12 row mx-auto text-left mt-3">
-		<div class="bg-shadow mr-lg-2 rounded col-lg col-12 p-4 min-h-special">
-			<input v-model='country' placeholder="Type your country... E.g. USA" class='form-control text-lg mb-3'>
-			<div v-if='countryCases'>
-				<h4 class='text-muted'>Selected:</h4>
-				<h1 class='font-weight-bold'>{{countryCases[0].country}}</h1>
-				<h1 class='responsive-text text-danger font-weight-bold'>{{countryCases[0].cases.total}}</h1>
-				<h4 class='opacity font-weight-bold'><span class='text-danger'>{{countryCases[0].cases.new ? countryCases[0].cases.new : 0}}</span> TODAY</h4>
-			</div>
-		</div>
-		<div class="bg-shadow ml-lg-2 mt-lg-0 mt-3 mb-lg-0 mb-3 rounded col-lg col-12 p-4 min-h-special">
-			<router-link to='/all'>
-				<h3 class='text-light bg-primary rounded p-2'>See all countries</h3>
-			</router-link>
-			<div class="text-center mt-5">
-				<h1 style='font-size: 100px'>🧼👏</h1>
-				<h2 class='mt-4'>Don't forget to wash your hands!</h2>
-			</div>
-		</div>
-	</div>
+    <div v-else>
+        <div class="col-12 row mx-auto text-left">
+            <div class="bg-shadow mr-lg-2 rounded col-lg col-12 p-4">
+                <h4 class='text-muted'>Most infected:</h4>
+                <h1 class='font-weight-bold'>{{most.country}}</h1>
+                <h1 class='responsive-text text-danger font-weight-bold'>{{most.cases.total}}</h1>
+                <h4 class='opacity font-weight-bold'><span class='text-danger'>{{most.cases.new}}</span> TODAY</h4>
+            </div>
+            <div class="bg-shadow ml-lg-2 mt-lg-0 mt-3 rounded col-lg col-12 p-4">
+                <h4 class='text-muted'>Least infected:</h4>
+                <h1 class='font-weight-bold'>{{least.country}}</h1>
+                <h1 class='responsive-text text-danger font-weight-bold'>{{least.cases.total}}</h1>
+                <h4 class='opacity font-weight-bold'><span class='text-danger'>{{least.cases.new ? least.cases.new : 0}}</span> TODAY</h4>
+            </div>
+        </div>
+        <div class="col-12 row mx-auto text-left mt-3">
+            <div class="bg-shadow mr-lg-2 rounded col-lg col-12 p-4 min-h-special">
+                <input v-model='country' placeholder="Type your country... E.g. USA" class='form-control text-lg mb-3'>
+                <div v-if='countryCases'>
+                    <h4 class='text-muted'>Selected:</h4>
+                    <h1 class='font-weight-bold'>{{countryCases[0].country}}</h1>
+                    <h1 class='responsive-text text-danger font-weight-bold'>{{countryCases[0].cases.total}}</h1>
+                    <h4 class='opacity font-weight-bold'><span class='text-danger'>{{countryCases[0].cases.new ? countryCases[0].cases.new : 0}}</span> TODAY</h4>
+                </div>
+            </div>
+            <div class="bg-shadow ml-lg-2 mt-lg-0 mt-3 mb-lg-0 mb-3 rounded col-lg col-12 p-4 min-h-special">
+                <router-link to='/all'>
+                    <h3 class='text-light bg-primary rounded p-2'>See all countries</h3>
+                </router-link>
+                <div class="text-center mt-5">
+                    <h1 style='font-size: 100px'>🧼👏</h1>
+                    <h2 class='mt-4'>Don't forget to wash your hands!</h2>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 </template>
 
